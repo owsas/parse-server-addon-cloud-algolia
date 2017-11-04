@@ -1,5 +1,7 @@
 # Parse Server Addon Cloud Algolia
 
+![Travis](https://travis-ci.org/owsas/parse-server-addon-cloud-algolia.svg?branch=master)
+
 Keeps in sync your database with Algolia, adding new behaviours on the `afterSave` and `afterDelete` functions on the Cloud Code. 
 
 This is an addon for [ParseCloudClass](https://github.com/owsas/parse-cloud-class), and [parse-server](https://github.com/parse-community/parse-server)
