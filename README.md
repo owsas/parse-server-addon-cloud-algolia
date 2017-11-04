@@ -1,24 +1,81 @@
-# Typescript module template
+# Parse Server Addon Cloud Algolia
 
-A typescript boilerplate to publish modules to npm
+Keeps in sync your database with Algolia, adding new behaviours on the `afterSave` and `afterDelete` functions on the Cloud Code. 
 
-## Usage
+This is an addon for [ParseCloudClass](https://github.com/owsas/parse-cloud-class), and [parse-server](https://github.com/parse-community/parse-server)
 
-Clone this repo, and start adding your code in the `index.ts` file.  
-When you are done, write the tests in the `index.test.ts` file. For testing, this repo works with [Jest](https://facebook.github.io/jest/).
+## Installation
 
-Once you finished, you can publish your module to npm with `npm publish`. This will compile your Typescript code
-and send it to npm.
+```
+npm install --save parse-server-addon-cloud-class-algolia
+```
 
-Make sure to change the name of the package in `package.json`
+Note: This package is Typescript friendly and comes with Intellisense :)
 
 ## Features
-* Testing with Jest
-* Linting out of the box (checks the style of your code), with TSLint
-* Build, prepublish and other scripts to help you to develop
-* Works with Typescript: Static typing for your JS Applications, reducing amount of runtime errors
-* Coverage out of the box, thanks to Jest
-* Uses deterministic module resolving, with Yarn
+* Adds new objects in your class to algolia
+* Updates the objects in algolia when they change
+* Deletes the objects in algolia as they get removed from your database
+* Works for both PostgresSQL and MongoDB
+
+## How to use
+
+This package requires you to check first `parse-server-addon-cloud-class` and how it works.
+
+```js
+// cloud/main.js
+import { 
+  ParseCloudClass 
+} from 'parse-server-addon-cloud-class';
+
+import { 
+  AlgoliaCloudAddon 
+} from 'parse-server-addon-cloud-class-algolia';
+
+
+const algoliaAddon = new AlgoliaCloudAddon()
+  // initialize this with your credentials
+  .initialize('ALGOLIA_APP_ID', 'ALGOLIA_KEY', 'INDEX_NAME')
+  // set the keys you want to index in algolia
+  // for each of your objects
+  .setKeysToIndex([ 'name', 'location', 'numShares', 'otherObj' ]);
+
+
+// Now we create the configuration for our class. For more information, refer to its docs
+// here: https://github.com/owsas/parse-cloud-class
+const classConfig = new ParseCloudClass();
+classConfig.useAddon(algoliaAddon);
+
+
+// Now we finish configuring the class to 
+// use our given configuration
+ParseCloudClass.configureClass(Parse, 'MyParseClass', classConfig);
+```
+
+## The result
+
+You will have a sync between your desired Parse class, stored in PostgreSQL or MongoDB and Algolia for efficient searching.
+
+This addon will setup the following hooks:
+* __afterSave__
+* __afterDelete__
+
+
+## Extending the Algolia Cloud Addon
+
+You can easily extend the Algolia Cloud Addon as it is a normal Javascript class, doing the following: 
+
+```ts
+import { 
+  AlgoliaCloudAddon 
+} from 'parse-server-addon-cloud-class-algolia';
+
+export class MyModified extends AlgoliaCloudAddon {
+  // your new implementations to the lyfecycle functions
+}
+```
+
+Note: Check all the possibilities [here](https://github.com/owsas/parse-cloud-class)
 
 ## Credits
 
