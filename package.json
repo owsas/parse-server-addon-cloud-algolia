@@ -1,6 +1,6 @@
 {
   "name": "parse-server-addon-cloud-class-algolia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A typescript boilerplate to publish modules to npm",
   "main": "out/index.js",
   "types": "out/index.d.ts",
@@ -27,7 +27,7 @@
     "typescript": "^2.5.3"
   },
   "peerDependencies": {
-    "parse-server-addon-cloud-class": "^1.0.2"    
+    "parse-server-addon-cloud-class": "^1.0.2"
   },
   "dependencies": {
     "algoliasearch": "^3.24.5",
