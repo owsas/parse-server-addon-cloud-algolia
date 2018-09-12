@@ -19,6 +19,7 @@
     "@types/jest": "^23.3.2",
     "@types/parse": "^2.4.0",
     "jest": "^23.6.0",
+    "parse": "^1.10.1",
     "parse-server-addon-cloud-class": "^1.0.2",
     "ts-jest": "^23.1.4",
     "tslint": "^5.8.0",
